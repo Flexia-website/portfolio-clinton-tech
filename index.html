@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinton Benjamin Ejiofor · Full‑Stack Dev</title>
+    <!-- ===== TAILWIND CDN ===== -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- ===== PREMIUM FONTS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <!-- ===== FONT AWESOME 6 ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e8edf5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== HEADING FONT ===== */
+        .font-display {
+            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+        }
+
+        /* ===== MONO FONT ===== */
+        .font-mono-custom {
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        /* ===== CUSTOM CURSOR (REDUCED SIZE) ===== */
+        #custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.15s ease;
+            opacity: 0;
+            will-change: transform, left, top;
+        }
+        #custom-cursor.visible {
+            opacity: 1;
+        }
+
+        #cursor-ring {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(251, 191, 36, 0.35);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.08), inset 0 0 20px rgba(251, 191, 36, 0.04);
+            transition: width 0.2s ease, height 0.2s ease, border-color 0.3s ease;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        #cursor-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fbbf24;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.15);
+            transition: width 0.15s ease, height 0.15s ease, background 0.3s ease;
+        }
+
+        .cursor-line {
+            position: absolute;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 2px;
+            transition: opacity 0.3s ease;
+        }
+        .cursor-line-h { width: 12px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .cursor-line-v { width: 1px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        @keyframes ringPulse {
+            0%, 100% {
+                border-color: rgba(251, 191, 36, 0.25);
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.04), inset 0 0 20px rgba(251, 191, 36, 0.02);
+            }
+            50% {
+                border-color: rgba(251, 191, 36, 0.45);
+                box-shadow: 0 0 40px rgba(251, 191, 36, 0.1), inset 0 0 30px rgba(251, 191, 36, 0.04);
+            }
+        }
+
+        #custom-cursor.hover #cursor-ring {
+            width: 36px;
+            height: 36px;
+            border-color: rgba(251, 191, 36, 0.65);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.15), inset 0 0 40px rgba(251, 191, 36, 0.06);
+        }
+        #custom-cursor.hover #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: #fcd34d;
+            box-shadow: 0 0 24px rgba(251, 191, 36, 0.7), 0 0 60px rgba(251, 191, 36, 0.2);
+        }
+        #custom-cursor.hover .cursor-line {
+            opacity: 0.6;
+        }
+
+        /* ===== MAIN CONTAINER – UNTOUCHED ===== */
+        .app-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            transition: max-width 0.5s ease;
+        }
+        @media (max-width: 767px) { .app-wrapper { max-width: 480px; padding: 0 0.8rem; } }
+        @media (min-width: 768px) { .app-wrapper { max-width: 768px; padding: 0 2rem; } }
+        @media (min-width: 1024px) { .app-wrapper { max-width: 1024px; } }
+        @media (min-width: 1280px) { .app-wrapper { max-width: 1200px; } }
+
+        /* ===== GLASSMORPHISM ===== */
+        .glass {
+            background: rgba(15, 15, 15, 0.65);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(251, 191, 36, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card {
+            position: relative;
+            background: rgba(15, 15, 15, 0.70);
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            box-shadow: 0 12px 48px -12px rgba(0, 0, 0, 0.8);
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, border-color, background;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(251, 191, 36, 0.08), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .glass-card:hover::before { left: 130%; }
+        .glass-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(251, 191, 36, 0.25);
+            box-shadow: 0 20px 60px -16px rgba(100, 70, 10, 0.25);
+            background: rgba(20, 20, 20, 0.85);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .text-primary { color: #fdf6e3; }
+        .text-secondary { color: #d1d5db; }
+        .text-muted { color: #9ca3af; }
+
+        .text-gradient {
+            background: linear-gradient(115deg, #fef3c7, #fbbf24, #d97706, #fbbf24, #fef3c7);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        /* ===== BACKGROUND ===== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                linear-gradient(rgba(251, 191, 36, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+            animation: orbFloat 22s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        .bg-orb-1 { width: 600px; height: 600px; background: #3d2a05; top: -20%; left: -10%; }
+        .bg-orb-2 { width: 700px; height: 700px; background: #4a2800; bottom: -25%; right: -15%; animation-delay: 6s; }
+        .bg-orb-3 { width: 500px; height: 500px; background: #1a1505; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 12s; opacity: 0.25; }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -25px) scale(1.05); }
+            66% { transform: translate(-25px, 30px) scale(0.95); }
+            100% { transform: translate(50px, 40px) scale(1.1); }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(251, 191, 36, 0.08);
+            filter: blur(3px);
+            animation: particleDrift 25s infinite alternate ease-in-out;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+        @keyframes particleDrift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            100% { transform: translate(60px, -50px) scale(1.8); opacity: 0.5; }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.08);
+        }
+        .nav-underline {
+            position: relative;
+            color: #d1d5db;
+            font-weight: 450;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+        }
+        .nav-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fbbf24, #d97706);
+            transition: width 0.3s ease;
+        }
+        .nav-underline:hover { color: #fdf6e3; }
+        .nav-underline:hover::after { width: 100%; }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-left: 1px solid rgba(251, 191, 36, 0.08);
+            transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 100;
+            padding: 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+        .sidebar.open { right: 0; }
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
+
+        /* ===== IMAGES (REDUCED) ===== */
+        .profile-img {
+            border-radius: 50%;
+            border: 2px solid rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 80px rgba(251, 191, 36, 0.08);
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            will-change: transform;
+        }
+        @media (min-width: 768px) { .profile-img { width: 180px; height: 180px; } }
+
+        .project-img {
+            border-radius: 14px;
+            border: 1px solid rgba(251, 191, 36, 0.04);
+            transition: all 0.4s ease;
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            will-change: transform, border-color;
+        }
+        @media (min-width: 768px) { .project-img { height: 170px; } }
+        .project-img:hover { transform: scale(1.02); border-color: rgba(251, 191, 36, 0.2); }
+
+        /* ===== TOOL LOGOS ===== */
+        .tool-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.7rem;
+            color: #d1d5db;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 450;
+            letter-spacing: 0.01em;
+            will-change: transform, background, border-color, color;
+        }
+        .tool-logo i { font-size: 0.85rem; color: #fbbf24; transition: transform 0.3s ease; }
+        .tool-logo:hover {
+            background: rgba(251, 191, 36, 0.10);
+            border-color: rgba(251, 191, 36, 0.3);
+            color: #fdf6e3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -8px rgba(251, 191, 36, 0.25);
+        }
+        .tool-logo:hover i { transform: scale(1.15) rotate(-6deg); }
+
+        .carousel-container:hover .carousel-track,
+        .carousel-container:focus-within .carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* ===== CTA BUTTONS ===== */
+        .btn-primary-glow {
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, background 0.3s ease, color 0.3s ease;
+        }
+        .btn-primary-glow:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 40px -10px rgba(251, 191, 36, 0.35);
+        }
+        .btn-primary-glow:active { transform: translateY(-1px) scale(0.99); }
+
+        .btn-secondary-glow {
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-secondary-glow:hover {
+            transform: translateY(-3px);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+        .btn-secondary-glow:active { transform: translateY(-1px); }
+
+        /* ===== SKILL ICON ===== */
+        .skill-icon {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+        }
+        .skill-card:hover .skill-icon {
+            transform: scale(1.12) rotate(-8deg);
+            box-shadow: 0 0 24px -4px currentColor;
+        }
+
+        /* ===== CAROUSEL ===== */
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
+            animation: carouselScroll 40s linear infinite;
+            width: max-content;
+            will-change: transform;
+        }
+        @keyframes carouselScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .carousel-container {
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .carousel-track-wrapper { display: flex; gap: 1rem; }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== HERO ENTRANCE ===== */
+        .hero-enter {
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        .hero-enter-1 { animation-delay: 0.05s; }
+        .hero-enter-2 { animation-delay: 0.2s; }
+        .hero-enter-3 { animation-delay: 0.35s; }
+        .hero-enter-4 { animation-delay: 0.5s; }
+        .hero-enter-5 { animation-delay: 0.65s; }
+        .hero-enter-6 { animation-delay: 0.4s; }
+
+        @keyframes heroFadeUp {
+            0% { opacity: 0; transform: translateY(16px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== IDLE FLOAT ===== */
+        .idle-float {
+            animation: idleFloat 6s ease-in-out infinite;
+        }
+        @keyframes idleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ===== PORTRAIT RING ===== */
+        .portrait-ring {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #fbbf24, transparent 30%, transparent 70%, #fbbf24);
+            opacity: 0.5;
+            animation: ringSpin 12s linear infinite;
+            z-index: 5;
+        }
+        @keyframes ringSpin { 100% { transform: rotate(360deg); } }
+
+        /* ===== BADGE ===== */
+        .badge-glass {
+            background: rgba(251, 191, 36, 0.10);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #fcd34d;
+            display: inline-block;
+            font-weight: 600;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+        .badge-glass:hover {
+            background: rgba(251, 191, 36, 0.18);
+            border-color: rgba(251, 191, 36, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* ===== STATS ===== */
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #fef3c7, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== ACCORDION ===== */
+        .accordion-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(251, 191, 36, 0.06);
+            border-radius: 12px;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.01em;
+        }
+        .accordion-btn:hover { background: rgba(251, 191, 36, 0.06); border-color: rgba(251, 191, 36, 0.2); }
+        .accordion-btn i { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); color: #fbbf24; font-size: 0.7rem; }
+        .accordion-btn.open i { transform: rotate(180deg); }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1), padding 0.4s ease;
+            padding: 0 1rem;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+        .accordion-content.open { max-height: 500px; padding: 0.8rem 1rem; }
+        .accordion-content p { margin-bottom: 0.4rem; }
+        .accordion-content blockquote {
+            border-left: 3px solid #fbbf24;
+            padding-left: 0.8rem;
+            color: #9ca3af;
+            font-style: italic;
+            margin: 0.4rem 0;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        /* ===== SKILLS GRID ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+        .skill-card { text-align: center; padding: 1rem 0.8rem !important; will-change: transform, border-color, background; }
+
+        /* ===== FOOTER ===== */
+        .quick-links-glass {
+            background: rgba(15, 15, 15, 0.50);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(251, 191, 36, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            width: max-content;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .quick-link-item { position: relative; color: #d1d5db; font-size: 0.75rem; font-weight: 450; padding: 0.3rem 0.8rem; transition: color 0.3s ease; text-decoration: none; }
+        .quick-link-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0.1rem;
+            left: 0.8rem;
+            right: 0.8rem;
+            height: 1px;
+            background: #fbbf24;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+        .quick-link-item:hover { color: #fdf6e3; }
+        .quick-link-item:hover::after { transform: scaleX(1); }
+        .quick-link-divider { width: 1px; height: 16px; background: rgba(251, 191, 36, 0.2); flex-shrink: 0; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .hero-enter { opacity: 1; transform: none; }
+        }
+
+        /* ===== UTILITY ===== */
+        .text-tight { line-height: 1.4; }
+        .tracking-wide-custom { letter-spacing: 0.02em; }
+        .heading-serif { font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: -0.01em; }
+        .hover-location:hover { color: #fbbf24 !important; transition: color 0.3s ease; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CUSTOM CURSOR ===== -->
+    <div id="custom-cursor">
+        <div id="cursor-ring">
+            <div class="cursor-line cursor-line-h"></div>
+            <div class="cursor-line cursor-line-v"></div>
+        </div>
+        <div id="cursor-dot"></div>
+    </div>
+
+    <!-- ===== BACKGROUND ===== -->
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+    <div id="particle-field" class="fixed inset-0 z-0 pointer-events-none overflow-hidden"></div>
+
+    <!-- ===== SIDEBAR BACKDROP ===== -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar" class="sidebar">
+        <div class="flex justify-between items-center mb-3">
+            <span class="text-xs font-light text-muted tracking-wide-custom">Navigation</span>
+            <button id="closeSidebar" class="text-muted hover:text-primary text-xl transition">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-3">
+            <a href="#home" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">Home</a>
+            <a href="#about" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">About</a>
+            <a href="#skills" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">Skills</a>
+            <a href="#projects" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">Projects</a>
+            <a href="#insights" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">Insights</a>
+            <a href="#faq" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">FAQ</a>
+            <a href="#contact" class="text-base font-light text-secondary hover:text-primary border-b border-white/5 pb-2 transition tracking-wide-custom">Contact</a>
+        </nav>
+        <div class="mt-auto pt-4 border-t border-white/5 text-muted text-xs tracking-wide-custom">
+            <i class="fas fa-circle text-[5px] align-middle text-[#fbbf24] mr-2"></i> Clinton Tech · 2026
+        </div>
+    </aside>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar fixed top-0 w-full z-50">
+        <div class="w-full px-6 md:px-10 lg:px-16 py-2 md:py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="image/logo.png" alt="Clinton Tech" class="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover border border-white/10" loading="lazy" onerror="this.style.display='none'" />
+                <span class="text-sm md:text-base font-semibold text-primary tracking-tight">Clinton<span class="text-[#fbbf24]">.</span>Tech</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-5 text-xs font-medium tracking-wide-custom">
+                <a href="#home" class="nav-underline transition pb-1">Home</a>
+                <a href="#about" class="nav-underline transition pb-1">About</a>
+                <a href="#skills" class="nav-underline transition pb-1">Skills</a>
+                <a href="#projects" class="nav-underline transition pb-1">Projects</a>
+                <a href="#insights" class="nav-underline transition pb-1">Insights</a>
+                <a href="#faq" class="nav-underline transition pb-1">FAQ</a>
+                <a href="#contact" class="nav-underline transition pb-1">Contact</a>
+            </nav>
+            <button id="openSidebar" class="md:hidden text-secondary hover:text-primary text-lg transition">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="relative w-full min-h-screen flex items-center overflow-hidden border-b border-white/5">
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-screen pointer-events-none">
+            <source src="video/background.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-[#0a0a0a]/5 z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/50 z-0"></div>
+
+        <div class="w-full px-6 md:px-10 lg:px-16 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4 items-center pt-16 md:pt-0">
+            
+            <div class="space-y-4 relative">
+                <!-- Mobile Profile Picture -->
+                <img src="image/header.png" class="absolute -top-2 right-0 w-14 h-14 md:hidden rounded-full border-2 border-[#fbbf24]/30 object-cover shadow-lg" loading="lazy" onerror="this.style.display='none'" />
+
+                <div class="hero-enter hero-enter-1 flex items-center gap-3 text-[10px] md:text-xs text-[#fbbf24] font-mono-custom tracking-wider">
+                    <span class="w-10 h-px bg-[#fbbf24]/60"></span>
+                    <span>Premium · Full‑Stack · Creative</span>
+                </div>
+                <h1 class="hero-enter hero-enter-2 text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-primary heading-serif">
+                    Clinton <br />
+                    <span class="text-gradient font-semibold heading-serif">Benjamin Ejiofor</span>
+                </h1>
+                <p class="hero-enter hero-enter-3 text-base md:text-lg font-light text-secondary tracking-wide-custom">
+                    Software Developer <span class="text-muted mx-1">|</span> Technical Graphic Designer
+                </p>
+                <p class="hero-enter hero-enter-4 text-xs md:text-base text-secondary max-w-2xl leading-relaxed tracking-wide-custom">
+                    Architecting digital infrastructures and brand identities with a focus on
+                    interactive UI/UX, end-to-end deployment, and user-centered design.
+                </p>
+                
+                <div class="hero-enter hero-enter-5 flex flex-wrap gap-4 pt-3">
+                    <a href="#projects" class="btn-primary-glow glass px-6 py-3 rounded-full text-xs font-medium text-primary hover:text-white inline-flex items-center gap-2 border border-[#fbbf24]/20 tracking-wide-custom">
+                        <i class="fas fa-folder-open text-[#fbbf24]"></i> View Work
+                    </a>
+                    <a href="#contact" class="btn-secondary-glow px-6 py-3 rounded-full text-xs font-medium text-secondary hover:text-primary hover:bg-white/5 inline-flex items-center gap-2 border border-white/5 tracking-wide-custom">
+                        <i class="fas fa-paper-plane text-[#fbbf24]"></i> Contact
+                    </a>
+                </div>
+                
+                <div class="hero-enter hero-enter-6 flex flex-wrap gap-x-6 gap-y-2 mt-4 text-xs md:text-sm text-secondary">
+                    <span class="flex items-center gap-2"><i class="fas fa-envelope text-[#fbbf24]/70"></i> clintonbenjamin208@gmail.com</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-phone text-[#fbbf24]/70"></i> +234 816 088 1049</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-location-dot text-[#fbbf24]/70"></i>
+                        <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer" class="hover:text-[#fbbf24] transition hover-location">Nigeria</a>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Desktop Profile Picture -->
+            <div class="hero-enter hero-enter-3 flex justify-center md:justify-end hidden md:flex">
+                <div class="relative w-fit idle-float">
+                    <div class="absolute inset-0 rounded-full bg-[#fbbf24] blur-3xl opacity-20 animate-pulse"></div>
+                    <div class="portrait-ring"></div>
+                    <img src="image/header.png" alt="Clinton Benjamin Ejiofor" class="profile-img relative z-10 hover:scale-[1.03] transition-transform duration-700" loading="lazy" onerror="this.style.display='none'" />
+                    <div class="absolute bottom-2 right-0 glass px-4 py-1.5 rounded-full text-[10px] md:text-xs flex items-center gap-2 z-20 border border-[#fbbf24]/20 shadow-xl">
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                        <span class="text-secondary font-medium tracking-wide-custom">Available</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ===== APP WRAPPER ===== -->
+    <div class="app-wrapper z-10 pt-6 md:pt-10">
+
+        <!-- ===== TOOL LOGOS CAROUSEL ===== -->
+        <section class="py-4 mb-6 md:mb-10">
+            <div class="carousel-container">
+                <div class="carousel-track-wrapper">
+                    <div class="carousel-track">
+                        <span class="tool-logo"><i class="fab fa-github"></i> GitHub</span>
+                        <span class="tool-logo"><i class="fas fa-cloud-upload-alt"></i> Render</span>
+                        <span class="tool-logo"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="tool-logo"><i class="fab fa-css3-alt"></i> Tailwind</span>
+                        <span class="tool-logo"><i class="fab fa-python"></i> Python</span>
+                        <span class="tool-logo"><i class="fas fa-credit-card"></i> Paystack</span>
+                        <span class="tool-logo"><i class="fab fa-linux"></i> Termux</span>
+                        <span class="tool-logo"><i class="fas fa-database"></i> PostgreSQL</span>
+                        <span class="tool-logo"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="tool-logo"><i class="fab fa-github"></i> GitHub</span>
+                        <span class="tool-logo"><i class="fas fa-cloud-upload-alt"></i> Render</span>
+                        <span class="tool-logo"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="tool-logo"><i class="fab fa-css3-alt"></i> Tailwind</span>
+                        <span class="tool-logo"><i class="fab fa-python"></i> Python</span>
+                        <span class="tool-logo"><i class="fas fa-credit-card"></i> Paystack</span>
+                        <span class="tool-logo"><i class="fab fa-linux"></i> Termux</span>
+                        <span class="tool-logo"><i class="fas fa-database"></i> PostgreSQL</span>
+                        <span class="tool-logo"><i class="fab fa-js"></i> JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section id="about" class="py-8 md:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+                <div class="reveal">
+                    <span class="badge-glass">About</span>
+                    <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Crafting <span class="text-gradient">Digital</span> Futures</h2>
+                    <p class="text-secondary text-xs md:text-base leading-relaxed mt-4 tracking-wide-custom">
+                        I'm a versatile software developer and technical graphic designer operating under the Clinton Tech brand.
+                        With expertise in end-to-end web deployment, interactive UI/UX design, and brand identity development,
+                        I translate client requirements into functional digital infrastructure and professional marketing assets.
+                    </p>
+                    <p class="text-secondary text-xs md:text-base leading-relaxed mt-3 tracking-wide-custom">
+                        My approach is rooted in systems thinking—building resilient, adaptive solutions. Whether it's a school website, a cyber cafe platform, or a complete brand identity, I deliver solutions that are both beautiful and robust.
+                    </p>
+                    <div class="flex flex-wrap gap-6 md:gap-10 mt-6">
+                        <div><div class="stat-number">5+</div><div class="text-[10px] md:text-xs text-muted tracking-wide-custom font-medium uppercase mt-1">Years</div></div>
+                        <div><div class="stat-number">12</div><div class="text-[10px] md:text-xs text-muted tracking-wide-custom font-medium uppercase mt-1">Projects</div></div>
+                        <div><div class="stat-number">100%</div><div class="text-[10px] md:text-xs text-muted tracking-wide-custom font-medium uppercase mt-1">Satisfaction</div></div>
+                    </div>
+                </div>
+                <div class="glass-card p-4 md:p-6 rounded-3xl reveal reveal-delay-2 border border-white/5 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-quote-left text-2xl md:text-3xl text-[#fbbf24]/40"></i>
+                        <div>
+                            <p class="text-secondary italic text-xs md:text-base leading-relaxed font-display">
+                                "Clinton's ability to merge technical precision with creative vision is exceptional.
+                                He delivered a website that not only looks premium but also performs flawlessly."
+                            </p>
+                            <p class="text-muted text-[10px] md:text-xs mt-3 font-medium tracking-wide-custom">— Client, Proper Child International School</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SKILLS ===== -->
+        <section id="skills" class="py-8 md:py-12">
+            <div class="text-center mb-6 md:mb-10 reveal">
+                <span class="badge-glass">Expertise</span>
+                <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Core <span class="text-gradient">Skills</span></h2>
+                <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card glass-card rounded-3xl border border-white/5 reveal reveal-delay-1 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="skill-icon w-10 h-10 rounded-2xl bg-[#fbbf24]/10 flex items-center justify-center text-[#fbbf24] text-xl mx-auto mb-3">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xs md:text-sm font-semibold text-primary tracking-wide-custom mb-1">Web Dev</h3>
+                    <p class="text-muted text-[10px] md:text-xs leading-tight font-mono-custom">HTML · CSS · JS · Python</p>
+                </div>
+                <div class="skill-card glass-card rounded-3xl border border-white/5 reveal reveal-delay-2 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="skill-icon w-10 h-10 rounded-2xl bg-[#d97706]/10 flex items-center justify-center text-[#d97706] text-xl mx-auto mb-3">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3 class="text-xs md:text-sm font-semibold text-primary tracking-wide-custom mb-1">Design</h3>
+                    <p class="text-muted text-[10px] md:text-xs leading-tight font-mono-custom">Vector · Brand · CorelDRAW</p>
+                </div>
+                <div class="skill-card glass-card rounded-3xl border border-white/5 reveal reveal-delay-3 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="skill-icon w-10 h-10 rounded-2xl bg-[#f59e0b]/10 flex items-center justify-center text-[#f59e0b] text-xl mx-auto mb-3">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="text-xs md:text-sm font-semibold text-primary tracking-wide-custom mb-1">Automation</h3>
+                    <p class="text-muted text-[10px] md:text-xs leading-tight font-mono-custom">Termux · Pydroid · scrcpy</p>
+                </div>
+                <div class="skill-card glass-card rounded-3xl border border-white/5 reveal reveal-delay-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="skill-icon w-10 h-10 rounded-2xl bg-[#fef3c7]/10 flex items-center justify-center text-[#fef3c7] text-xl mx-auto mb-3">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 class="text-xs md:text-sm font-semibold text-primary tracking-wide-custom mb-1">DevOps</h3>
+                    <p class="text-muted text-[10px] md:text-xs leading-tight font-mono-custom">Git · DNS · SEO · Pages</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS ===== -->
+        <section id="projects" class="py-8 md:py-12">
+            <div class="text-center mb-6 md:mb-10 reveal">
+                <span class="badge-glass">Portfolio</span>
+                <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Featured <span class="text-gradient">Projects</span></h2>
+                <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                <!-- Project 1 -->
+                <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-1 border border-white/5 group">
+                    <div class="overflow-hidden">
+                        <img src="image/1.png" alt="Proper Child International School" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="flex items-center gap-2 text-[#fbbf24] text-[10px] font-mono-custom tracking-wider">
+                            <i class="fas fa-school"></i>
+                            <span>Web Infrastructure & Branding</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-primary tracking-wide-custom">Proper Child Int'l School</h3>
+                        <p class="text-secondary text-xs md:text-sm leading-relaxed tracking-wide-custom">Engineered official website layout, handled DNS routing, and structured core brand messaging highlighting the motto "bringing out the best in our children".</p>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">Branding</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">SEO</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">HTML/CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-2 border border-white/5 group">
+                    <div class="overflow-hidden">
+                        <img src="image/2.png" alt="Chimacandccom Cyber Cafe" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="flex items-center gap-2 text-[#d97706] text-[10px] font-mono-custom tracking-wider">
+                            <i class="fas fa-wifi"></i>
+                            <span>Web Platform & Deployment</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-primary tracking-wide-custom">Chimacandccom Cyber Cafe</h3>
+                        <p class="text-secondary text-xs md:text-sm leading-relaxed tracking-wide-custom">Deployed robust web platform configuring custom domain parameters using GitHub Pages with sitemap indexing and search visibility optimization.</p>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">GitHub Pages</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">DNS</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-3 border border-white/5 group">
+                    <div class="overflow-hidden">
+                        <img src="image/services.png" alt="Clinton Tech Services" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="flex items-center gap-2 text-[#f59e0b] text-[10px] font-mono-custom tracking-wider">
+                            <i class="fas fa-cogs"></i>
+                            <span>Founder & Lead Developer</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-primary tracking-wide-custom">Clinton Tech</h3>
+                        <p class="text-secondary text-xs md:text-sm leading-relaxed tracking-wide-custom">Full-stack architectural development, custom flyer dimensions for print, and automation scripts using environments like Termux and scrcpy.</p>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">Consulting</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">Automation</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">Python</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-4 border border-white/5 group">
+                    <div class="overflow-hidden">
+                        <img src="image/header.png" alt="Brand Identity" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <div class="flex items-center gap-2 text-[#fef3c7] text-[10px] font-mono-custom tracking-wider">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Brand Identity & Messaging</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-semibold text-primary tracking-wide-custom">Core Identity Design</h3>
+                        <p class="text-secondary text-xs md:text-sm leading-relaxed tracking-wide-custom">Generated promotional vector-style layouts via CorelDRAW workflows, defining strict uniform aesthetics and finalizing refined campaign slogans.</p>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">Vector Design</span>
+                            <span class="text-[10px] px-2 py-1 rounded-full glass text-secondary border border-[#fbbf24]/20 font-medium tracking-wide-custom">CorelDRAW</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== INSIGHTS ===== -->
+        <section id="insights" class="py-8 md:py-12 max-w-4xl mx-auto">
+            <div class="text-center mb-6 md:mb-10 reveal">
+                <span class="badge-glass">Insights</span>
+                <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Practical <span class="text-gradient">Perspectives</span></h2>
+                <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
+            </div>
+            <div class="space-y-3">
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-code text-[#fbbf24] mr-3"></i> The Art of Code</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>Software development is a blend of logic and creativity. Writing clean, maintainable code requires discipline and a deep understanding of the underlying systems.</p>
+                        <p>By focusing on modularity and clear documentation, we build applications that are easier to scale and debug.</p>
+                        <blockquote>"Great code reads like a well‑written story."</blockquote>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-paint-brush text-[#d97706] mr-3"></i> Design Thinking</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>Great interfaces are built on empathy. Understanding the user's journey allows us to craft experiences that feel intuitive and effortless.</p>
+                        <p>This approach reduces friction and increases engagement, turning visitors into loyal users.</p>
+                        <blockquote>"Design is not just how it looks, but how it works."</blockquote>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-balance-scale text-[#f59e0b] mr-3"></i> Function & Form</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>The best digital products balance visual aesthetics with technical performance. A beautiful design that loads slowly or breaks is ineffective; a functional tool that looks dated struggles to connect.</p>
+                        <p>Striking the right balance is what separates good projects from great ones.</p>
+                        <blockquote>"Form follows function—and both must serve the user."</blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ ===== -->
+        <section id="faq" class="py-8 md:py-12 max-w-4xl mx-auto">
+            <div class="text-center mb-6 md:mb-10 reveal">
+                <span class="badge-glass">FAQ</span>
+                <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Frequently Asked <span class="text-gradient">Questions</span></h2>
+                <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
+            </div>
+            <div class="space-y-3">
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-question-circle text-[#fbbf24] mr-3"></i> What services do you offer?</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>I offer full-stack web development, technical graphic design, brand identity creation, and UI/UX consulting. I work with clients from concept to deployment, ensuring a seamless digital presence.</p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-clock text-[#d97706] mr-3"></i> What is your typical timeline?</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>Project timelines vary based on complexity. A standard website can take 2–4 weeks, while more complex applications may take 6–8 weeks. I provide clear timelines and regular updates.</p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-handshake text-[#f59e0b] mr-3"></i> How do we get started?</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>Simply reach out via email or phone. We'll schedule a discovery call to discuss your goals, timeline, and budget. From there, I'll prepare a proposal and roadmap for your project.</p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
+                        <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-code text-[#fef3c7] mr-3"></i> What technologies do you use?</span>
+                        <i class="fas fa-chevron-down text-[#fbbf24] text-xs"></i>
+                    </button>
+                    <div class="accordion-content px-4">
+                        <p>I specialize in HTML5, CSS (Tailwind), JavaScript, Python (Django/Flask), and deployment via GitHub Pages. For design, I use CorelDRAW and other vector graphics tools.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT / FOOTER ===== -->
+        <footer id="contact" class="border-t border-white/5 mt-8 py-8 md:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
+                <div class="reveal">
+                    <h4 class="text-primary font-semibold text-[10px] md:text-xs uppercase tracking-wider mb-3">Get in Touch</h4>
+                    <p class="text-secondary text-xs tracking-wide-custom mb-3">I'm always open to new ideas, technical challenges, or just a chat.</p>
+                    <div class="space-y-2 text-xs">
+                        <p class="text-secondary tracking-wide-custom flex items-center gap-2"><i class="fas fa-envelope text-[#fbbf24]"></i> clintonbenjamin208@gmail.com</p>
+                        <p class="text-secondary tracking-wide-custom flex items-center gap-2"><i class="fas fa-phone text-[#fbbf24]"></i> +234 816 088 1049</p>
+                        <p class="text-secondary tracking-wide-custom flex items-center gap-2"><i class="fas fa-location-dot text-[#fbbf24]"></i>
+                            <a href="https://www.google.com/maps/place/Nigeria" target="_blank" rel="noopener noreferrer" class="hover:text-[#fbbf24] transition hover-location">Nigeria</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===== QUICK LINKS ===== -->
+                <div class="reveal reveal-delay-2 md:col-span-1 flex flex-col items-center">
+                    <h4 class="text-primary font-semibold text-[10px] md:text-xs uppercase tracking-wider mb-3 text-center">Quick Links</h4>
+                    <div class="quick-links-glass">
+                        <a href="#home" class="quick-link-item">Home</a>
+                        <span class="quick-link-divider hidden sm:block"></span>
+                        <a href="#about" class="quick-link-item">About</a>
+                        <span class="quick-link-divider hidden sm:block"></span>
+                        <a href="#skills" class="quick-link-item">Skills</a>
+                        <span class="quick-link-divider hidden sm:block"></span>
+                        <a href="#projects" class="quick-link-item">Projects</a>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-3 md:text-right flex flex-col md:items-end">
+                    <h4 class="text-primary font-semibold text-[10px] md:text-xs uppercase tracking-wider mb-3">Connect</h4>
+                    <div class="flex gap-4 text-lg text-muted">
+                        <a href="#" class="hover:text-[#fbbf24] hover:-translate-y-1 hover:drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] transition-all"><i class="fab fa-github"></i></a>
+                        <a href="#" class="hover:text-[#fbbf24] hover:-translate-y-1 hover:drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="hover:text-[#fbbf24] hover:-translate-y-1 hover:drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] transition-all"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-[#fbbf24] hover:-translate-y-1 hover:drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] transition-all"><i class="fab fa-codepen"></i></a>
+                    </div>
+                    <div class="mt-4 text-[10px] text-muted font-mono-custom tracking-wider">
+                        <i class="fas fa-circle text-[3px] align-middle text-[#fbbf24] mr-2"></i> Built with precision
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 mt-8 pt-4 text-center text-muted text-[10px] font-medium tracking-wide-custom">
+                &copy; <span id="year"></span> Clinton Benjamin Ejiofor · Built with precision.
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== CUSTOM CURSOR =====
+            const cursor = document.getElementById('custom-cursor');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let isVisible = false;
+            let isHovering = false;
+            const EASING = 0.25;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!isVisible) {
+                    cursor.classList.add('visible');
+                    isVisible = true;
+                }
+                const target = e.target;
+                const isInteractive = target.closest('a') ||
+                    target.closest('button') ||
+                    target.closest('.glass-card') ||
+                    target.closest('.tool-logo') ||
+                    target.closest('.accordion-btn') ||
+                    target.closest('.nav-underline') ||
+                    target.closest('.project-img');
+                if (isInteractive && !isHovering) {
+                    cursor.classList.add('hover');
+                    isHovering = true;
+                } else if (!isInteractive && isHovering) {
+                    cursor.classList.remove('hover');
+                    isHovering = false;
+                }
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * EASING;
+                cursorY += (mouseY - cursorY) * EASING;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.addEventListener('mouseleave', () => { cursor.classList.remove('visible'); isVisible = false; });
+            document.addEventListener('mouseenter', () => { cursor.classList.add('visible'); isVisible = true; });
+
+            // ===== PARTICLES =====
+            const field = document.getElementById('particle-field');
+            if (field) {
+                const pCount = window.innerWidth > 768 ? 30 : 18;
+                for (let i = 0; i < pCount; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    const size = Math.random() * 4 + 2;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.top = Math.random() * 100 + '%';
+                    p.style.animationDuration = (14 + Math.random() * 24) + 's';
+                    p.style.animationDelay = (Math.random() * 20) + 's';
+                    p.style.background = `radial-gradient(circle at center, rgba(251,191,36,0.15), transparent)`;
+                    field.appendChild(p);
+                }
+            }
+
+            // ===== SIDEBAR =====
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const openBtn = document.getElementById('openSidebar');
+            const closeBtn = document.getElementById('closeSidebar');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                backdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                backdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+            if (openBtn) openBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+
+            // ===== SCROLL REVEAL =====
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            reveals.forEach(el => observer.observe(el));
+
+            // ===== SMOOTH SCROLL =====
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = target.offsetTop - 60;
+                        if ('scrollBehavior' in document.documentElement.style) {
+                            window.scrollTo({ top: offset, behavior: 'smooth' });
+                        } else {
+                            window.scrollTo(0, offset);
+                        }
+                    }
+                });
+            });
+
+            // ===== ACTIVE NAV LINK =====
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar a, .sidebar a');
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        let current = '';
+                        sections.forEach(section => {
+                            const top = section.offsetTop - 80;
+                            if (window.scrollY >= top) {
+                                current = section.getAttribute('id');
+                            }
+                        });
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-primary');
+                            link.classList.add('text-secondary');
+                            if (link.getAttribute('href') === `#${current}`) {
+                                link.classList.add('text-primary');
+                                link.classList.remove('text-secondary');
+                            }
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // ===== ACCORDION =====
+            window.toggleAccordion = function(btn) {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i.fa-chevron-down');
+                const parentSection = btn.closest('section');
+                if (parentSection) {
+                    const allBtns = parentSection.querySelectorAll('.accordion-btn');
+                    allBtns.forEach(otherBtn => {
+                        if (otherBtn !== btn) {
+                            otherBtn.classList.remove('open');
+                            const otherContent = otherBtn.nextElementSibling;
+                            if (otherContent) otherContent.classList.remove('open');
+                            const otherIcon = otherBtn.querySelector('i.fa-chevron-down');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                }
+                btn.classList.toggle('open');
+                content.classList.toggle('open');
+                if (icon) {
+                    icon.style.transform = btn.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            };
+
+            // ===== DYNAMIC YEAR =====
+            const yearEl = document.getElementById('year');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+        })();
+    </script>
+
+</body>
+</html>
