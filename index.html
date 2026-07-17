@@ -3,7 +3,64 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clinton Benjamin Ejiofor · Full‑Stack Dev</title>
+    <title>Clinton Benjamin Ejiofor · Best Full‑Stack Web Developer & Graphics Designer in Nigeria</title>
+    
+    <!-- ===== SEO META TAGS ===== -->
+    <meta name="description" content="Clinton Benjamin Ejiofor is a top-rated full-stack web developer, technical graphics designer, and UI/UX expert in Nigeria. Specializing in responsive websites, brand identity, CorelDRAW, and deployment." />
+    <meta name="keywords" content="Clinton Benjamin Ejiofor, Clinton Tech, best web developer Nigeria, top graphics designer Nigeria, full-stack developer, UI/UX expert, front-end developer, back-end engineer, responsive web design, brand identity, CorelDRAW, Python developer, JavaScript, Tailwind CSS, HTML5, Django, Flask, PostgreSQL, DevOps, GitHub Pages, SEO specialist, digital marketing, Lagos web designer, Abuja web developer, freelance developer Nigeria, hire web developer, premium website design" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Clinton Benjamin Ejiofor" />
+    <link rel="canonical" href="https://clintontech.com" />
+
+    <!-- ===== OPEN GRAPH / SOCIAL ===== -->
+    <meta property="og:title" content="Clinton Benjamin Ejiofor · Full‑Stack Web Developer & Graphics Designer" />
+    <meta property="og:description" content="Top-rated full-stack web developer and graphics designer in Nigeria. Expert in UI/UX, brand identity, and deployment." />
+    <meta property="og:url" content="https://clintontech.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Clinton Benjamin Ejiofor · Web Developer & Designer" />
+    <meta name="twitter:description" content="Full-stack web developer and graphics designer in Nigeria. Expert in UI/UX, brand identity, and deployment." />
+
+    <!-- ===== JSON‑LD STRUCTURED DATA ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Clinton Benjamin Ejiofor",
+      "alternateName": "Clinton Tech",
+      "jobTitle": "Full‑Stack Web Developer & Technical Graphic Designer",
+      "url": "https://clintontech.com",
+      "email": "clintonbenjamin208@gmail.com",
+      "telephone": "+2348160881049",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "NG"
+      },
+      "sameAs": [
+        "https://github.com/yourusername",
+        "https://linkedin.com/in/yourusername",
+        "https://twitter.com/yourusername"
+      ],
+      "knowsAbout": [
+        "Web Development",
+        "Graphic Design",
+        "UI/UX Design",
+        "Brand Identity",
+        "Full‑Stack Development",
+        "Python",
+        "JavaScript",
+        "Tailwind CSS",
+        "CorelDRAW",
+        "DevOps",
+        "SEO"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Clinton Tech"
+      }
+    }
+    </script>
+
     <!-- ===== TAILWIND CDN ===== -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- ===== PREMIUM FONTS ===== -->
@@ -46,7 +103,7 @@
             font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
         }
 
-        /* ===== CUSTOM CURSOR (REDUCED SIZE) ===== */
+        /* ===== CUSTOM CURSOR ===== */
         #custom-cursor {
             position: fixed;
             pointer-events: none;
@@ -59,9 +116,7 @@
             opacity: 0;
             will-change: transform, left, top;
         }
-        #custom-cursor.visible {
-            opacity: 1;
-        }
+        #custom-cursor.visible { opacity: 1; }
 
         #cursor-ring {
             position: absolute;
@@ -94,14 +149,8 @@
         .cursor-line-v { width: 1px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
         @keyframes ringPulse {
-            0%, 100% {
-                border-color: rgba(251, 191, 36, 0.25);
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.04), inset 0 0 20px rgba(251, 191, 36, 0.02);
-            }
-            50% {
-                border-color: rgba(251, 191, 36, 0.45);
-                box-shadow: 0 0 40px rgba(251, 191, 36, 0.1), inset 0 0 30px rgba(251, 191, 36, 0.04);
-            }
+            0%, 100% { border-color: rgba(251, 191, 36, 0.25); box-shadow: 0 0 20px rgba(251, 191, 36, 0.04), inset 0 0 20px rgba(251, 191, 36, 0.02); }
+            50% { border-color: rgba(251, 191, 36, 0.45); box-shadow: 0 0 40px rgba(251, 191, 36, 0.1), inset 0 0 30px rgba(251, 191, 36, 0.04); }
         }
 
         #custom-cursor.hover #cursor-ring {
@@ -116,11 +165,9 @@
             background: #fcd34d;
             box-shadow: 0 0 24px rgba(251, 191, 36, 0.7), 0 0 60px rgba(251, 191, 36, 0.2);
         }
-        #custom-cursor.hover .cursor-line {
-            opacity: 0.6;
-        }
+        #custom-cursor.hover .cursor-line { opacity: 0.6; }
 
-        /* ===== MAIN CONTAINER – UNTOUCHED ===== */
+        /* ===== MAIN CONTAINER ===== */
         .app-wrapper {
             width: 100%;
             margin: 0 auto;
@@ -149,29 +196,14 @@
             -webkit-backdrop-filter: blur(20px) saturate(200%);
             border: 1px solid rgba(251, 191, 36, 0.06);
             box-shadow: 0 12px 48px -12px rgba(0, 0, 0, 0.8);
-            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-            will-change: transform, border-color, background;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.35s ease;
+            will-change: transform;
             overflow: hidden;
         }
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -60%;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(115deg, transparent, rgba(251, 191, 36, 0.08), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.75s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .glass-card:hover::before { left: 130%; }
         .glass-card:hover {
             transform: translateY(-3px);
             border-color: rgba(251, 191, 36, 0.25);
             box-shadow: 0 20px 60px -16px rgba(100, 70, 10, 0.25);
-            background: rgba(20, 20, 20, 0.85);
         }
 
         /* ===== TYPOGRAPHY ===== */
@@ -185,7 +217,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 8s ease-in-out infinite;
+            animation: gradientShift 12s ease-in-out infinite;
         }
 
         @keyframes gradientShift {
@@ -211,32 +243,24 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.35;
-            animation: orbFloat 22s ease-in-out infinite alternate;
-            will-change: transform;
         }
         .bg-orb-1 { width: 600px; height: 600px; background: #3d2a05; top: -20%; left: -10%; }
-        .bg-orb-2 { width: 700px; height: 700px; background: #4a2800; bottom: -25%; right: -15%; animation-delay: 6s; }
-        .bg-orb-3 { width: 500px; height: 500px; background: #1a1505; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 12s; opacity: 0.25; }
+        .bg-orb-2 { width: 700px; height: 700px; background: #4a2800; bottom: -25%; right: -15%; }
+        .bg-orb-3 { width: 500px; height: 500px; background: #1a1505; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.25; }
 
-        @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, -25px) scale(1.05); }
-            66% { transform: translate(-25px, 30px) scale(0.95); }
-            100% { transform: translate(50px, 40px) scale(1.1); }
-        }
-
+        /* ===== PARTICLES (REDUCED) ===== */
         .particle {
             position: absolute;
             border-radius: 50%;
             background: rgba(251, 191, 36, 0.08);
-            filter: blur(3px);
-            animation: particleDrift 25s infinite alternate ease-in-out;
+            filter: blur(2px);
+            animation: particleDrift 20s infinite alternate ease-in-out;
             pointer-events: none;
-            will-change: transform, opacity;
+            will-change: transform;
         }
         @keyframes particleDrift {
             0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
-            100% { transform: translate(60px, -50px) scale(1.8); opacity: 0.5; }
+            100% { transform: translate(30px, -30px) scale(1.5); opacity: 0.3; }
         }
 
         /* ===== NAVBAR ===== */
@@ -297,7 +321,7 @@
         }
         .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
 
-        /* ===== IMAGES (REDUCED) ===== */
+        /* ===== IMAGES ===== */
         .profile-img {
             border-radius: 50%;
             border: 2px solid rgba(251, 191, 36, 0.2);
@@ -305,18 +329,16 @@
             width: 120px;
             height: 120px;
             object-fit: cover;
-            will-change: transform;
         }
         @media (min-width: 768px) { .profile-img { width: 180px; height: 180px; } }
 
         .project-img {
             border-radius: 14px;
             border: 1px solid rgba(251, 191, 36, 0.04);
-            transition: all 0.4s ease;
+            transition: transform 0.4s ease, border-color 0.4s ease;
             width: 100%;
             height: 140px;
             object-fit: cover;
-            will-change: transform, border-color;
         }
         @media (min-width: 768px) { .project-img { height: 170px; } }
         .project-img:hover { transform: scale(1.02); border-color: rgba(251, 191, 36, 0.2); }
@@ -337,7 +359,6 @@
             transition: all 0.3s ease;
             font-weight: 450;
             letter-spacing: 0.01em;
-            will-change: transform, background, border-color, color;
         }
         .tool-logo i { font-size: 0.85rem; color: #fbbf24; transition: transform 0.3s ease; }
         .tool-logo:hover {
@@ -428,27 +449,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== IDLE FLOAT ===== */
-        .idle-float {
-            animation: idleFloat 6s ease-in-out infinite;
-        }
-        @keyframes idleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* ===== PORTRAIT RING ===== */
-        .portrait-ring {
-            position: absolute;
-            inset: -10px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #fbbf24, transparent 30%, transparent 70%, #fbbf24);
-            opacity: 0.5;
-            animation: ringSpin 12s linear infinite;
-            z-index: 5;
-        }
-        @keyframes ringSpin { 100% { transform: rotate(360deg); } }
-
         /* ===== BADGE ===== */
         .badge-glass {
             background: rgba(251, 191, 36, 0.10);
@@ -533,7 +533,7 @@
             margin: 0 auto;
         }
         @media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
-        .skill-card { text-align: center; padding: 1rem 0.8rem !important; will-change: transform, border-color, background; }
+        .skill-card { text-align: center; padding: 1rem 0.8rem !important; }
 
         /* ===== FOOTER ===== */
         .quick-links-glass {
@@ -659,7 +659,7 @@
 
     <!-- ===== HERO ===== -->
     <section id="home" class="relative w-full min-h-screen flex items-center overflow-hidden border-b border-white/5">
-        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-screen pointer-events-none">
+        <video autoplay loop muted playsinline poster="image/fallback.jpg" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-screen pointer-events-none">
             <source src="video/background.mp4" type="video/mp4" />
         </video>
         <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-[#0a0a0a]/5 z-0"></div>
@@ -707,10 +707,8 @@
             
             <!-- Desktop Profile Picture -->
             <div class="hero-enter hero-enter-3 flex justify-center md:justify-end hidden md:flex">
-                <div class="relative w-fit idle-float">
-                    <div class="absolute inset-0 rounded-full bg-[#fbbf24] blur-3xl opacity-20 animate-pulse"></div>
-                    <div class="portrait-ring"></div>
-                    <img src="image/header.png" alt="Clinton Benjamin Ejiofor" class="profile-img relative z-10 hover:scale-[1.03] transition-transform duration-700" loading="lazy" onerror="this.style.display='none'" />
+                <div class="relative w-fit">
+                    <img src="image/header.png" alt="Clinton Benjamin Ejiofor" class="profile-img hover:scale-[1.03] transition-transform duration-700" loading="lazy" onerror="this.style.display='none'" />
                     <div class="absolute bottom-2 right-0 glass px-4 py-1.5 rounded-full text-[10px] md:text-xs flex items-center gap-2 z-20 border border-[#fbbf24]/20 shadow-xl">
                         <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
                         <span class="text-secondary font-medium tracking-wide-custom">Available</span>
@@ -720,6 +718,13 @@
             
         </div>
     </section>
+
+    <!-- ===== HIDDEN SEO IMAGES (for Google Image index) ===== -->
+    <div style="display:none;">
+        <img src="image/a.png" alt="Clinton Benjamin Ejiofor web developer Nigeria" />
+        <img src="image/b.png" alt="Clinton Tech graphics designer brand identity" />
+        <img src="image/c.png" alt="Clinton Benjamin Ejiofor full-stack developer portfolio" />
+    </div>
 
     <!-- ===== APP WRAPPER ===== -->
     <div class="app-wrapper z-10 pt-6 md:pt-10">
@@ -738,6 +743,7 @@
                         <span class="tool-logo"><i class="fab fa-linux"></i> Termux</span>
                         <span class="tool-logo"><i class="fas fa-database"></i> PostgreSQL</span>
                         <span class="tool-logo"><i class="fab fa-js"></i> JavaScript</span>
+                        <!-- Duplicated for seamless loop -->
                         <span class="tool-logo"><i class="fab fa-github"></i> GitHub</span>
                         <span class="tool-logo"><i class="fas fa-cloud-upload-alt"></i> Render</span>
                         <span class="tool-logo"><i class="fab fa-html5"></i> HTML5</span>
@@ -837,7 +843,7 @@
                 <!-- Project 1 -->
                 <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-1 border border-white/5 group">
                     <div class="overflow-hidden">
-                        <img src="image/1.png" alt="Proper Child International School" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                        <img src="image/1.png" alt="Proper Child International School website" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
                     </div>
                     <div class="p-4 space-y-2">
                         <div class="flex items-center gap-2 text-[#fbbf24] text-[10px] font-mono-custom tracking-wider">
@@ -856,7 +862,7 @@
                 <!-- Project 2 -->
                 <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-2 border border-white/5 group">
                     <div class="overflow-hidden">
-                        <img src="image/2.png" alt="Chimacandccom Cyber Cafe" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                        <img src="image/2.png" alt="Chimacandccom Cyber Cafe platform" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
                     </div>
                     <div class="p-4 space-y-2">
                         <div class="flex items-center gap-2 text-[#d97706] text-[10px] font-mono-custom tracking-wider">
@@ -874,7 +880,7 @@
                 <!-- Project 3 -->
                 <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-3 border border-white/5 group">
                     <div class="overflow-hidden">
-                        <img src="image/services.png" alt="Clinton Tech Services" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                        <img src="image/services.png" alt="Clinton Tech services" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
                     </div>
                     <div class="p-4 space-y-2">
                         <div class="flex items-center gap-2 text-[#f59e0b] text-[10px] font-mono-custom tracking-wider">
@@ -893,7 +899,7 @@
                 <!-- Project 4 -->
                 <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-4 border border-white/5 group">
                     <div class="overflow-hidden">
-                        <img src="image/header.png" alt="Brand Identity" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
+                        <img src="image/header.png" alt="Brand identity design" class="project-img group-hover:scale-105 duration-700" loading="lazy" onerror="this.style.display='none'" />
                     </div>
                     <div class="p-4 space-y-2">
                         <div class="flex items-center gap-2 text-[#fef3c7] text-[10px] font-mono-custom tracking-wider">
@@ -1170,34 +1176,6 @@
                         }
                     }
                 });
-            });
-
-            // ===== ACTIVE NAV LINK =====
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.navbar a, .sidebar a');
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        let current = '';
-                        sections.forEach(section => {
-                            const top = section.offsetTop - 80;
-                            if (window.scrollY >= top) {
-                                current = section.getAttribute('id');
-                            }
-                        });
-                        navLinks.forEach(link => {
-                            link.classList.remove('text-primary');
-                            link.classList.add('text-secondary');
-                            if (link.getAttribute('href') === `#${current}`) {
-                                link.classList.add('text-primary');
-                                link.classList.remove('text-secondary');
-                            }
-                        });
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
             });
 
             // ===== ACCORDION =====
