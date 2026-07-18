@@ -1,0 +1,18 @@
+# ============================================
+# ROBOTS.TXT – Clinton Tech Portfolio
+# Allow all crawlers, block unnecessary folders
+# ============================================
+
+User-agent: *
+Allow: /
+
+# Block sensitive or non-essential folders
+Disallow: /image/
+Disallow: /assets/
+Disallow: /video/
+
+# Sitemap location
+Sitemap: https://clintonbenjamin.dedyn.io/sitemap.xml
+
+# Crawl delay (optional – for slower bots)
+Crawl-delay: 2
