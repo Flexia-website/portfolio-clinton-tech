@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clinton Benjamin Ejiofor · Best Full‑Stack Web Developer & Graphics Designer in Nigeria</title>
-    
+
     <!-- ===== SEO META TAGS ===== -->
     <meta name="description" content="Clinton Benjamin Ejiofor is a top-rated full-stack web developer, technical graphics designer, and UI/UX expert in Nigeria. Specializing in responsive websites, brand identity, CorelDRAW, and deployment." />
     <meta name="keywords" content="Clinton Benjamin Ejiofor, Clinton Tech, best web developer Nigeria, top graphics designer Nigeria, full-stack developer, UI/UX expert, front-end developer, back-end engineer, responsive web design, brand identity, CorelDRAW, Python developer, JavaScript, Tailwind CSS, HTML5, Django, Flask, PostgreSQL, DevOps, GitHub Pages, SEO specialist, digital marketing, Lagos web designer, Abuja web developer, freelance developer Nigeria, hire web developer, premium website design" />
@@ -16,28 +16,37 @@
     <meta property="og:title" content="Clinton Benjamin Ejiofor · Full‑Stack Web Developer & Graphics Designer" />
     <meta property="og:description" content="Top-rated full-stack web developer and graphics designer in Nigeria. Expert in UI/UX, brand identity, and deployment." />
     <meta property="og:url" content="https://clintontech.com" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:profile:first_name" content="Clinton" />
+    <meta property="og:profile:last_name" content="Ejiofor" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Clinton Benjamin Ejiofor · Web Developer & Designer" />
     <meta name="twitter:description" content="Full-stack web developer and graphics designer in Nigeria. Expert in UI/UX, brand identity, and deployment." />
 
-    <!-- ===== JSON‑LD STRUCTURED DATA ===== -->
+    <!-- ===== JSON‑LD STRUCTURED DATA (Enhanced for Knowledge Panel) ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Clinton Benjamin Ejiofor",
+      "givenName": "Clinton",
+      "familyName": "Ejiofor",
       "alternateName": "Clinton Tech",
       "jobTitle": "Full‑Stack Web Developer & Technical Graphic Designer",
-      "url": "https://clintontech.com",
+      "url": "https://clintonbenjamin.dedyn.io",
       "email": "clintonbenjamin208@gmail.com",
       "telephone": "+2348160881049",
+      "birthDate": "2007",
+      "nationality": "Nigerian",
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "NG"
       },
+      "image": "https://clintonbenjamin.dedyn.io/image/header.png",
       "sameAs": [
         "https://github.com/clintoncyber",
+        "https://linkedin.com/in/clintonbenjamin",
+        "https://twitter.com/clintontech"
       ],
       "knowsAbout": [
         "Web Development",
@@ -54,19 +63,46 @@
       ],
       "worksFor": {
         "@type": "Organization",
-        "name": "Clinton Tech"
+        "name": "Clinton Tech",
+        "url": "https://clintonbenjamin.dedyn.io"
+      },
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Software Developer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Nigeria"
+        }
+      }
+    }
+    </script>
+    <!-- ===== Additional WebSite Schema for search box ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://clintonbenjamin.dedyn.io",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://clintonbenjamin.dedyn.io/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
       }
     }
     </script>
 
     <!-- ===== TAILWIND CDN ===== -->
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17">
+    </script>
     <!-- ===== PREMIUM FONTS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <!-- ===== FONT AWESOME 6 ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -75,7 +111,6 @@
             box-sizing: border-box;
             cursor: none !important;
         }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0a0a;
@@ -90,16 +125,8 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
-        /* ===== HEADING FONT ===== */
-        .font-display {
-            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
-        }
-
-        /* ===== MONO FONT ===== */
-        .font-mono-custom {
-            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
-        }
+        .font-display { font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif; }
+        .font-mono-custom { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace; }
 
         /* ===== CUSTOM CURSOR ===== */
         #custom-cursor {
@@ -246,7 +273,6 @@
         .bg-orb-2 { width: 700px; height: 700px; background: #4a2800; bottom: -25%; right: -15%; }
         .bg-orb-3 { width: 500px; height: 500px; background: #1a1505; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.25; }
 
-        /* ===== PARTICLES (REDUCED) ===== */
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -373,7 +399,7 @@
             animation-play-state: paused;
         }
 
-        /* ===== CTA BUTTONS ===== */
+        /* ===== BUTTONS ===== */
         .btn-primary-glow {
             transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, background 0.3s ease, color 0.3s ease;
         }
@@ -392,7 +418,6 @@
         }
         .btn-secondary-glow:active { transform: translateY(-1px); }
 
-        /* ===== SKILL ICON ===== */
         .skill-icon {
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
         }
@@ -550,7 +575,15 @@
             margin: 0 auto;
             flex-wrap: wrap;
         }
-        .quick-link-item { position: relative; color: #d1d5db; font-size: 0.75rem; font-weight: 450; padding: 0.3rem 0.8rem; transition: color 0.3s ease; text-decoration: none; }
+        .quick-link-item {
+            position: relative;
+            color: #d1d5db;
+            font-size: 0.75rem;
+            font-weight: 450;
+            padding: 0.3rem 0.8rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
         .quick-link-item::after {
             content: '';
             position: absolute;
@@ -572,7 +605,6 @@
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
 
-        /* ===== REDUCED MOTION ===== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -633,13 +665,14 @@
         </div>
     </aside>
 
-    <!-- ===== NAVBAR ===== -->
+    <!-- ===== NAVBAR (Search bar removed) ===== -->
     <header class="navbar fixed top-0 w-full z-50">
-        <div class="w-full px-6 md:px-10 lg:px-16 py-2 md:py-3 flex justify-between items-center">
+        <div class="w-full px-6 md:px-10 lg:px-16 py-2 md:py-3 flex justify-between items-center gap-2 flex-wrap">
             <div class="flex items-center gap-2">
                 <img src="image/logo.png" alt="Clinton Tech" class="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover border border-white/10" loading="lazy" onerror="this.style.display='none'" />
                 <span class="text-sm md:text-base font-semibold text-primary tracking-tight">Clinton<span class="text-[#fbbf24]">.</span>Tech</span>
             </div>
+
             <nav class="hidden md:flex items-center gap-5 text-xs font-medium tracking-wide-custom">
                 <a href="#home" class="nav-underline transition pb-1">Home</a>
                 <a href="#about" class="nav-underline transition pb-1">About</a>
@@ -664,9 +697,8 @@
         <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/50 z-0"></div>
 
         <div class="w-full px-6 md:px-10 lg:px-16 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4 items-center pt-16 md:pt-0">
-            
+
             <div class="space-y-4 relative">
-                <!-- Mobile Profile Picture -->
                 <img src="image/header.png" class="absolute -top-2 right-0 w-14 h-14 md:hidden rounded-full border-2 border-[#fbbf24]/30 object-cover shadow-lg" loading="lazy" onerror="this.style.display='none'" />
 
                 <div class="hero-enter hero-enter-1 flex items-center gap-3 text-[10px] md:text-xs text-[#fbbf24] font-mono-custom tracking-wider">
@@ -684,7 +716,7 @@
                     Architecting digital infrastructures and brand identities with a focus on
                     interactive UI/UX, end-to-end deployment, and user-centered design.
                 </p>
-                
+
                 <div class="hero-enter hero-enter-5 flex flex-wrap gap-4 pt-3">
                     <a href="#projects" class="btn-primary-glow glass px-6 py-3 rounded-full text-xs font-medium text-primary hover:text-white inline-flex items-center gap-2 border border-[#fbbf24]/20 tracking-wide-custom">
                         <i class="fas fa-folder-open text-[#fbbf24]"></i> View Work
@@ -693,7 +725,7 @@
                         <i class="fas fa-paper-plane text-[#fbbf24]"></i> Contact
                     </a>
                 </div>
-                
+
                 <div class="hero-enter hero-enter-6 flex flex-wrap gap-x-6 gap-y-2 mt-4 text-xs md:text-sm text-secondary">
                     <span class="flex items-center gap-2"><i class="fas fa-envelope text-[#fbbf24]/70"></i> clintonbenjamin208@gmail.com</span>
                     <span class="flex items-center gap-2"><i class="fas fa-phone text-[#fbbf24]/70"></i> +234 816 088 1049</span>
@@ -702,8 +734,7 @@
                     </span>
                 </div>
             </div>
-            
-            <!-- Desktop Profile Picture -->
+
             <div class="hero-enter hero-enter-3 flex justify-center md:justify-end hidden md:flex">
                 <div class="relative w-fit">
                     <img src="image/header.png" alt="Clinton Benjamin Ejiofor" class="profile-img hover:scale-[1.03] transition-transform duration-700" loading="lazy" onerror="this.style.display='none'" />
@@ -713,11 +744,11 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
-    <!-- ===== HIDDEN SEO IMAGES (for Google Image index) ===== -->
+    <!-- ===== HIDDEN SEO IMAGES ===== -->
     <div style="display:none;">
         <img src="image/a.png" alt="Clinton Benjamin Ejiofor web developer Nigeria" />
         <img src="image/b.png" alt="Clinton Tech graphics designer brand identity" />
@@ -741,7 +772,6 @@
                         <span class="tool-logo"><i class="fab fa-linux"></i> Termux</span>
                         <span class="tool-logo"><i class="fas fa-database"></i> PostgreSQL</span>
                         <span class="tool-logo"><i class="fab fa-js"></i> JavaScript</span>
-                        <!-- Duplicated for seamless loop -->
                         <span class="tool-logo"><i class="fab fa-github"></i> GitHub</span>
                         <span class="tool-logo"><i class="fas fa-cloud-upload-alt"></i> Render</span>
                         <span class="tool-logo"><i class="fab fa-html5"></i> HTML5</span>
@@ -837,7 +867,7 @@
                 <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Featured <span class="text-gradient">Projects</span></h2>
                 <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6" id="projectGrid">
                 <!-- Project 1 -->
                 <div class="glass-card rounded-3xl overflow-hidden reveal reveal-delay-1 border border-white/5 group">
                     <div class="overflow-hidden">
@@ -922,7 +952,7 @@
                 <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Practical <span class="text-gradient">Perspectives</span></h2>
                 <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-3" id="insightsContainer">
                 <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
                     <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
                         <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-code text-[#fbbf24] mr-3"></i> The Art of Code</span>
@@ -966,7 +996,7 @@
                 <h2 class="text-2xl md:text-3xl font-light mt-3 text-primary heading-serif">Frequently Asked <span class="text-gradient">Questions</span></h2>
                 <span class="block w-10 h-px bg-[#fbbf24]/30 mx-auto mt-3"></span>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-3" id="faqContainer">
                 <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
                     <button class="accordion-btn w-full px-4 py-3 text-left flex justify-between items-center text-secondary hover:text-primary transition" onclick="toggleAccordion(this)">
                         <span class="text-sm md:text-base font-medium tracking-wide-custom"><i class="fas fa-question-circle text-[#fbbf24] mr-3"></i> What services do you offer?</span>
@@ -1048,9 +1078,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="border-t border-white/5 mt-8 pt-4 text-center text-muted text-[10px] font-medium tracking-wide-custom">
                 &copy; <span id="year"></span> Clinton Benjamin Ejiofor · Built with precision.
+                <br /><span class="text-[8px] text-muted/50">Sitemap · Robots.txt · AI Search Ready</span>
             </div>
         </footer>
     </div>
@@ -1062,8 +1093,10 @@
 
             // ===== CUSTOM CURSOR =====
             const cursor = document.getElementById('custom-cursor');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
+            let mouseX = 0,
+                mouseY = 0;
+            let cursorX = 0,
+                cursorY = 0;
             let isVisible = false;
             let isHovering = false;
             const EASING = 0.25;
@@ -1101,8 +1134,14 @@
             }
             animateCursor();
 
-            document.addEventListener('mouseleave', () => { cursor.classList.remove('visible'); isVisible = false; });
-            document.addEventListener('mouseenter', () => { cursor.classList.add('visible'); isVisible = true; });
+            document.addEventListener('mouseleave', () => {
+                cursor.classList.remove('visible');
+                isVisible = false;
+            });
+            document.addEventListener('mouseenter', () => {
+                cursor.classList.add('visible');
+                isVisible = true;
+            });
 
             // ===== PARTICLES =====
             const field = document.getElementById('particle-field');
@@ -1134,6 +1173,7 @@
                 backdrop.classList.add('show');
                 document.body.style.overflow = 'hidden';
             }
+
             function closeSidebar() {
                 sidebar.classList.remove('open');
                 backdrop.classList.remove('show');
@@ -1145,7 +1185,9 @@
             document.querySelectorAll('.sidebar a').forEach(link => {
                 link.addEventListener('click', closeSidebar);
             });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeSidebar();
+            });
 
             // ===== SCROLL REVEAL =====
             const reveals = document.querySelectorAll('.reveal');
@@ -1205,6 +1247,11 @@
             if (yearEl) {
                 yearEl.textContent = new Date().getFullYear();
             }
+
+            // ===== SITEMAP & ROBOTS LOG =====
+            console.log('📁 Sitemap: https://clintonbenjamin.dedyn.io/sitemap.xml');
+            console.log('🤖 Robots.txt: https://clintonbenjamin.dedyn.io/robots.txt');
+            console.log('🔍 Knowledge Panel enabled with birthDate, image, and occupation.');
         })();
     </script>
 
