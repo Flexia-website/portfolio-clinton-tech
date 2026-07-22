@@ -7,9 +7,9 @@ User-agent: *
 Allow: /
 
 # Block sensitive or non-essential folders
-Disallow: /image/
-Disallow: /assets/
-Disallow: /video/
+allow: /image/
+allow: /assets/
+allow: /video/
 
 # Sitemap location
 Sitemap: https://clintonbenjamin.dedyn.io/sitemap.xml
