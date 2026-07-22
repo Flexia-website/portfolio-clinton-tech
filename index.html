@@ -1091,20 +1091,34 @@
     (function() {
         'use strict';
 
-        // ===== CUSTOM CURSOR (INSTANT - NO EASING) =====
+        // ===== CUSTOM CURSOR (Dot follows instantly, Circle follows smoothly) =====
         const cursor = document.getElementById('custom-cursor');
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        
         let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
         let isVisible = false;
         let isHovering = false;
+        
+        // Easing for the ring (smooth follow)
+        const RING_EASING = 0.15;
 
-        // Track mouse position
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            
             if (!isVisible) {
                 cursor.classList.add('visible');
                 isVisible = true;
+                // Initialize ring position to avoid jump
+                ringX = mouseX;
+                ringY = mouseY;
             }
+            
+            // Update dot position INSTANTLY (real-time)
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
             
             const target = e.target;
             const isInteractive = target.closest('a') ||
@@ -1114,6 +1128,7 @@
                 target.closest('.accordion-btn') ||
                 target.closest('.nav-underline') ||
                 target.closest('.project-img');
+                
             if (isInteractive && !isHovering) {
                 cursor.classList.add('hover');
                 isHovering = true;
@@ -1123,11 +1138,16 @@
             }
         });
 
-        // Animation loop - updates cursor position every frame (60fps)
+        // Animation loop - updates ring position with easing
         function animateCursor() {
-            // Direct position update - NO EASING, instant follow
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
+            // Ring follows with smooth easing (laggy/floaty effect)
+            ringX += (mouseX - ringX) * RING_EASING;
+            ringY += (mouseY - ringY) * RING_EASING;
+            
+            // Update ring position
+            ring.style.left = ringX + 'px';
+            ring.style.top = ringY + 'px';
+            
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
