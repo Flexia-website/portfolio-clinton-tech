@@ -1087,173 +1087,164 @@
     </div>
 
     <!-- ===== JAVASCRIPT ===== -->
-    <script>
-        (function() {
-            'use strict';
+<script>
+    (function() {
+        'use strict';
 
-            // ===== CUSTOM CURSOR =====
-            const cursor = document.getElementById('custom-cursor');
-            let mouseX = 0,
-                mouseY = 0;
-            let cursorX = 0,
-                cursorY = 0;
-            let isVisible = false;
-            let isHovering = false;
-            const EASING = 0.25;
+        // ===== CUSTOM CURSOR (INSTANT - NO EASING) =====
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = 0, mouseY = 0;
+        let isVisible = false;
+        let isHovering = false;
 
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                if (!isVisible) {
-                    cursor.classList.add('visible');
-                    isVisible = true;
-                }
-                const target = e.target;
-                const isInteractive = target.closest('a') ||
-                    target.closest('button') ||
-                    target.closest('.glass-card') ||
-                    target.closest('.tool-logo') ||
-                    target.closest('.accordion-btn') ||
-                    target.closest('.nav-underline') ||
-                    target.closest('.project-img');
-                if (isInteractive && !isHovering) {
-                    cursor.classList.add('hover');
-                    isHovering = true;
-                } else if (!isInteractive && isHovering) {
-                    cursor.classList.remove('hover');
-                    isHovering = false;
-                }
-            });
-
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * EASING;
-                cursorY += (mouseY - cursorY) * EASING;
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            document.addEventListener('mouseleave', () => {
-                cursor.classList.remove('visible');
-                isVisible = false;
-            });
-            document.addEventListener('mouseenter', () => {
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!isVisible) {
                 cursor.classList.add('visible');
                 isVisible = true;
-            });
+            }
+            // Update cursor position instantly
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            const target = e.target;
+            const isInteractive = target.closest('a') ||
+                target.closest('button') ||
+                target.closest('.glass-card') ||
+                target.closest('.tool-logo') ||
+                target.closest('.accordion-btn') ||
+                target.closest('.nav-underline') ||
+                target.closest('.project-img');
+            if (isInteractive && !isHovering) {
+                cursor.classList.add('hover');
+                isHovering = true;
+            } else if (!isInteractive && isHovering) {
+                cursor.classList.remove('hover');
+                isHovering = false;
+            }
+        });
 
-            // ===== PARTICLES =====
-            const field = document.getElementById('particle-field');
-            if (field) {
-                const pCount = window.innerWidth > 768 ? 30 : 18;
-                for (let i = 0; i < pCount; i++) {
-                    const p = document.createElement('div');
-                    p.className = 'particle';
-                    const size = Math.random() * 4 + 2;
-                    p.style.width = size + 'px';
-                    p.style.height = size + 'px';
-                    p.style.left = Math.random() * 100 + '%';
-                    p.style.top = Math.random() * 100 + '%';
-                    p.style.animationDuration = (14 + Math.random() * 24) + 's';
-                    p.style.animationDelay = (Math.random() * 20) + 's';
-                    p.style.background = `radial-gradient(circle at center, rgba(251,191,36,0.15), transparent)`;
-                    field.appendChild(p);
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.remove('visible');
+            isVisible = false;
+        });
+        document.addEventListener('mouseenter', () => {
+            cursor.classList.add('visible');
+            isVisible = true;
+        });
+
+        // ===== PARTICLES =====
+        const field = document.getElementById('particle-field');
+        if (field) {
+            const pCount = window.innerWidth > 768 ? 30 : 18;
+            for (let i = 0; i < pCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDuration = (14 + Math.random() * 24) + 's';
+                p.style.animationDelay = (Math.random() * 20) + 's';
+                p.style.background = `radial-gradient(circle at center, rgba(251,191,36,0.15), transparent)`;
+                field.appendChild(p);
+            }
+        }
+
+        // ===== SIDEBAR =====
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            backdrop.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        if (openBtn) openBtn.addEventListener('click', openSidebar);
+        if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+        if (backdrop) backdrop.addEventListener('click', closeSidebar);
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+
+        // ===== SCROLL REVEAL =====
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-            }
-
-            // ===== SIDEBAR =====
-            const sidebar = document.getElementById('sidebar');
-            const backdrop = document.getElementById('sidebarBackdrop');
-            const openBtn = document.getElementById('openSidebar');
-            const closeBtn = document.getElementById('closeSidebar');
-
-            function openSidebar() {
-                sidebar.classList.add('open');
-                backdrop.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                backdrop.classList.remove('show');
-                document.body.style.overflow = '';
-            }
-            if (openBtn) openBtn.addEventListener('click', openSidebar);
-            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-            if (backdrop) backdrop.addEventListener('click', closeSidebar);
-            document.querySelectorAll('.sidebar a').forEach(link => {
-                link.addEventListener('click', closeSidebar);
             });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeSidebar();
-            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => observer.observe(el));
 
-            // ===== SCROLL REVEAL =====
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = target.offsetTop - 60;
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                    } else {
+                        window.scrollTo(0, offset);
+                    }
+                }
+            });
+        });
+
+        // ===== ACCORDION =====
+        window.toggleAccordion = function(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i.fa-chevron-down');
+            const parentSection = btn.closest('section');
+            if (parentSection) {
+                const allBtns = parentSection.querySelectorAll('.accordion-btn');
+                allBtns.forEach(otherBtn => {
+                    if (otherBtn !== btn) {
+                        otherBtn.classList.remove('open');
+                        const otherContent = otherBtn.nextElementSibling;
+                        if (otherContent) otherContent.classList.remove('open');
+                        const otherIcon = otherBtn.querySelector('i.fa-chevron-down');
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
                     }
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-            reveals.forEach(el => observer.observe(el));
-
-            // ===== SMOOTH SCROLL =====
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href === '#') return;
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        const offset = target.offsetTop - 60;
-                        if ('scrollBehavior' in document.documentElement.style) {
-                            window.scrollTo({ top: offset, behavior: 'smooth' });
-                        } else {
-                            window.scrollTo(0, offset);
-                        }
-                    }
-                });
-            });
-
-            // ===== ACCORDION =====
-            window.toggleAccordion = function(btn) {
-                const content = btn.nextElementSibling;
-                const icon = btn.querySelector('i.fa-chevron-down');
-                const parentSection = btn.closest('section');
-                if (parentSection) {
-                    const allBtns = parentSection.querySelectorAll('.accordion-btn');
-                    allBtns.forEach(otherBtn => {
-                        if (otherBtn !== btn) {
-                            otherBtn.classList.remove('open');
-                            const otherContent = otherBtn.nextElementSibling;
-                            if (otherContent) otherContent.classList.remove('open');
-                            const otherIcon = otherBtn.querySelector('i.fa-chevron-down');
-                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                }
-                btn.classList.toggle('open');
-                content.classList.toggle('open');
-                if (icon) {
-                    icon.style.transform = btn.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-                }
-            };
-
-            // ===== DYNAMIC YEAR =====
-            const yearEl = document.getElementById('year');
-            if (yearEl) {
-                yearEl.textContent = new Date().getFullYear();
             }
+            btn.classList.toggle('open');
+            content.classList.toggle('open');
+            if (icon) {
+                icon.style.transform = btn.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        };
 
-            // ===== SITEMAP & ROBOTS LOG =====
-            console.log('📁 Sitemap: https://clintonbenjamin.dedyn.io/sitemap.xml');
-            console.log('🤖 Robots.txt: https://clintonbenjamin.dedyn.io/robots.txt');
-            console.log('🔍 Knowledge Panel enabled with birthDate, image, and occupation.');
-        })();
-    </script>
+        // ===== DYNAMIC YEAR =====
+        const yearEl = document.getElementById('year');
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
+
+        // ===== SITEMAP & ROBOTS LOG =====
+        console.log('📁 Sitemap: https://clintonbenjamin.dedyn.io/sitemap.xml');
+        console.log('🤖 Robots.txt: https://clintonbenjamin.dedyn.io/robots.txt');
+        console.log('🔍 Knowledge Panel enabled with birthDate, image, and occupation.');
+    })();
+</script>
 
 </body>
     <p style="display:none;">
