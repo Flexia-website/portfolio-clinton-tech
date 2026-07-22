@@ -1087,7 +1087,7 @@
     </div>
 
     <!-- ===== JAVASCRIPT ===== -->
-<script>
+    <script>
     (function() {
         'use strict';
 
@@ -1111,14 +1111,14 @@
             if (!isVisible) {
                 cursor.classList.add('visible');
                 isVisible = true;
-                // Initialize ring position to avoid jump
+                // Initialize ring position to current mouse position
                 ringX = mouseX;
                 ringY = mouseY;
             }
             
-            // Update dot position INSTANTLY (real-time)
-            dot.style.left = mouseX + 'px';
-            dot.style.top = mouseY + 'px';
+            // Update cursor container position INSTANTLY
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
             
             const target = e.target;
             const isInteractive = target.closest('a') ||
@@ -1138,28 +1138,43 @@
             }
         });
 
-        // Animation loop - updates ring position with easing
-        function animateCursor() {
-            // Ring follows with smooth easing (laggy/floaty effect)
-            ringX += (mouseX - ringX) * RING_EASING;
-            ringY += (mouseY - ringY) * RING_EASING;
-            
-            // Update ring position
-            ring.style.left = ringX + 'px';
-            ring.style.top = ringY + 'px';
-            
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
+        // Handle mouse entering the window - sync cursor position
+        document.addEventListener('mouseenter', (e) => {
+            // Get the current mouse position when entering
+            if (e.clientX !== undefined && e.clientY !== undefined) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                ringX = mouseX;
+                ringY = mouseY;
+                cursor.classList.add('visible');
+                isVisible = true;
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+            }
+        });
 
         document.addEventListener('mouseleave', () => {
             cursor.classList.remove('visible');
             isVisible = false;
         });
-        document.addEventListener('mouseenter', () => {
-            cursor.classList.add('visible');
-            isVisible = true;
-        });
+
+        // Animation loop - updates ring position with easing relative to container
+        function animateCursor() {
+            // Ring follows with smooth easing
+            ringX += (mouseX - ringX) * RING_EASING;
+            ringY += (mouseY - ringY) * RING_EASING;
+            
+            // Update ring position relative to the cursor container
+            const cursorRect = cursor.getBoundingClientRect();
+            const ringOffsetX = ringX - cursorRect.left;
+            const ringOffsetY = ringY - cursorRect.top;
+            
+            ring.style.left = ringOffsetX + 'px';
+            ring.style.top = ringOffsetY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
 
         // ===== PARTICLES =====
         const field = document.getElementById('particle-field');
